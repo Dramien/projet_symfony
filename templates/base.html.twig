@@ -6,43 +6,59 @@
         {% block stylesheets %}
         	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 			<!-- Google Fonts -->
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+			<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 			<!-- Bootstrap core CSS -->
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 			<!-- Material Design Bootstrap -->
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 			<!-- Toastr -->
 			<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
         {% endblock %}
     </head>
 
-    <header>
+    <header style="font-family: 'Montserrat';">
 
     	{% block header %}
 
-			<nav class="navbar navbar-expand-lg navbar-dark info-color-dark">
-				 
-				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-				    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-				    <span class="navbar-toggler-icon">Se connecter</span>
-				  </button>
+			<nav class="navbar navbar-expand-lg navbar-dark primary-color-dark mb-5">
 
-				  <div class="collapse navbar-collapse" id="basicExampleNav">
-					    <!-- Links -->
-					    <ul class="navbar-nav mr-auto">
-					      <li class="nav-item">
-					        <a class="nav-link" href="">User</a>
-					      </li>
-					      <li class="nav-item">
-					        <a class="nav-link" href="">Bien</a>
-					      </li>
-					    </ul>
-				  </div>
+				<a class="navbar-brand " href="home">Accueil</a>
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+			    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			    </button>
+
+			    <div class="collapse navbar-collapse" id="basicExampleNav">
+				    <!-- Links -->
+				    <ul class="navbar-nav mr-auto">
+				    	<li class="nav-item">
+				        	<a class="nav-link" href="">User</a></button>
+				      	</li>
+				    	<li class="nav-item">
+				        	<a class="nav-link" href="">Bien Immobilier</a>
+				    	</li>
+				    </ul>
+			  	</div>
+
+			  	<div class="collapse navbar-collapse" id="basicExampleNav">
+				    <!-- Links -->
+				    <ul class="navbar-nav ml-auto">
+				    	<li class="nav-item">
+				        	<a class="nav-link" href="">Se connecter</a>
+				      	</li>
+				    	<li class="nav-item">
+				        	<a class="nav-link" href="">Créer un compte</a>
+				    	</li>
+				    </ul>
+			  	</div>
+
 			</nav>
 
     	{% endblock %}
     </header>
-    <body>
+    <body style="font-family: 'Montserrat';">
         {% block body %}
 
 

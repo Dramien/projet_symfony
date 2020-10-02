@@ -3,9 +3,9 @@
 {% block title %}Bien{% endblock %}
 
 {% block body %}
-    <h1>Biens immobiliers disponibles</h1>
+    <h1 class="text-center" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
 
-    <table class="table">
+    <table class="table mt-5">
         <thead>
             <tr>
                 <th>Id</th>
@@ -35,8 +35,8 @@
                 <td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
-                    <a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a>
+                    <button class="btn btn-sm btn-info" style="border-radius: 10px"><a href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus...</a>
+                    <button class="btn btn-sm btn-warning"style="border-radius: 10px"><a href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a>
+    <button type="button" class="btn btn-primary-color"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
 {% endblock %}
