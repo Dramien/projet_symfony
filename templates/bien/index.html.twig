@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bien{% endblock %}
+
+{% block body %}
+    <h1>Biens immobiliers disponibles</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th>Categorie</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>ProprietaireId</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bien in biens %}
+            <tr>
+                <td>{{ bien.id }}</td>
+                <td>{{ bien.description }}</td>
+                <td>{{ bien.prix }}</td>
+                <td>{{ bien.photo }}</td>
+                <td>{{ bien.categorie }}</td>
+                <td>{{ bien.titre }}</td>
+                <td>{{ bien.type }}</td>
+                <td>{{ bien.proprietaireId }}</td>
+                <td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('bien_show', {'id': bien.id}) }}">show</a>
+                    <a href="{{ path('bien_edit', {'id': bien.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Aucun bien présent</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a>
+{% endblock %}

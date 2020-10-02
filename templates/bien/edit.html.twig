@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Bien{% endblock %}
+
+{% block body %}
+    <h1>Modifier un bien immobilier</h1>
+
+    {{ include('bien/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('bien_index') }}">Retour à la liste</a>
+
+    {{ include('bien/_delete_form.html.twig') }}
+{% endblock %}
