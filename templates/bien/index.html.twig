@@ -5,6 +5,12 @@
 {% block body %}
     <h1 class="text-center" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
 
+    {# Bloc executé seulement si je suis connecté #}
+    {%if is_granted('ROLE_USER')%}
+        <div>Bonjour {{ app.user.username }}, vous êtes connecté</div>
+    {%endif%}
+
+
     <table class="table mt-5">
         <thead>
             <tr>
