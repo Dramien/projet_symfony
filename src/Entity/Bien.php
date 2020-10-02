@@ -48,11 +48,6 @@ class Bien
     private $type;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $proprietaireId;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -61,6 +56,12 @@ class Bien
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Id")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $proprietaireId;
 
     public function getId(): ?int
     {
@@ -139,18 +140,6 @@ class Bien
         return $this;
     }
 
-    public function getProprietaireId(): ?int
-    {
-        return $this->proprietaireId;
-    }
-
-    public function setProprietaireId(int $proprietaireId): self
-    {
-        $this->proprietaireId = $proprietaireId;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -171,6 +160,18 @@ class Bien
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getProprietaireId(): ?User
+    {
+        return $this->proprietaireId;
+    }
+
+    public function setProprietaireId(?User $proprietaireId): self
+    {
+        $this->proprietaireId = $proprietaireId;
 
         return $this;
     }

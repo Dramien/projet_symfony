@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -15,6 +17,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity=Bien::class, mappedBy="proprietaireId")
      */
     private $id;
 
@@ -118,6 +121,11 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    public function __construct()
+    {
+        $this->Id = new ArrayCollection();
+    }
 
     public function getId(): ?string
     {
@@ -394,6 +402,29 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function addId(Bien $id): self
+    {
+        if (!$this->Id->contains($id)) {
+            $this->Id[] = $id;
+            $id->setProprietaireId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeId(Bien $id): self
+    {
+        if ($this->Id->contains($id)) {
+            $this->Id->removeElement($id);
+            // set the owning side to null (unless already changed)
+            if ($id->getProprietaireId() === $this) {
+                $id->setProprietaireId(null);
+            }
+        }
 
         return $this;
     }
