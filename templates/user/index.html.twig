@@ -10,7 +10,6 @@
             <tr>
                 <th>Id</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Email</th>
                 <th>Pseudo</th>
                 <th>Titre</th>
@@ -28,7 +27,6 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.titre }}</td>

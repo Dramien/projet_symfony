@@ -3,7 +3,7 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>Détail d'un compte utilisateur</h1>
 
     <table class="table">
         <tbody>
@@ -26,34 +26,6 @@
             <tr>
                 <th>Username</th>
                 <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>UsernameCanonical</th>
-                <td>{{ user.usernameCanonical }}</td>
-            </tr>
-            <tr>
-                <th>EmailCanonical</th>
-                <td>{{ user.emailCanonical }}</td>
-            </tr>
-            <tr>
-                <th>Enabled</th>
-                <td>{{ user.enabled }}</td>
-            </tr>
-            <tr>
-                <th>Salt</th>
-                <td>{{ user.salt }}</td>
-            </tr>
-            <tr>
-                <th>LastLogin</th>
-                <td>{{ user.lastLogin ? user.lastLogin|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ConfirmationToken</th>
-                <td>{{ user.confirmationToken }}</td>
-            </tr>
-            <tr>
-                <th>PasswordRequestedAt</th>
-                <td>{{ user.passwordRequestedAt ? user.passwordRequestedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Titre</th>
@@ -83,14 +55,7 @@
                 <th>Telephone</th>
                 <td>{{ user.telephone }}</td>
             </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+
         </tbody>
     </table>
 

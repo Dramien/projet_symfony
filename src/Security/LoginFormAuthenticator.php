@@ -48,13 +48,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'id' => $request->request->get('id'),
+            'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
-            $credentials['id']
+            $credentials['email']
         );
 
         return $credentials;
@@ -67,7 +67,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $credentials['id']]);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
             // fail authentication with a custom error
@@ -82,7 +82,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         // Personnalisation du message d'erreur en cas de mauvais mot de passe
         if( $this->passwordEncoder->isPasswordValid($user, $credentials['password']) ){
             return true;
-        }throw new  CustomUserMessageAuthenticationException('Mot depasse invalide !');
+        }throw new  CustomUserMessageAuthenticationException('Mot de passe invalide !');
     }
 
     /**
@@ -99,8 +99,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
+        // Quand l'authentification à réussie, je renvois sur la page index
         return new RedirectResponse($this->urlGenerator->generate('bien_index'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl()
