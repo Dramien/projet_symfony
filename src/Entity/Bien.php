@@ -58,10 +58,10 @@ class Bien
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Id")
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $proprietaireId;
+    private $proprietaire;
 
     public function getId(): ?int
     {
@@ -164,14 +164,14 @@ class Bien
         return $this;
     }
 
-    public function getProprietaireId(): ?User
+    public function getProprietaire(): ?User
     {
-        return $this->proprietaireId;
+        return $this->proprietaire;
     }
 
-    public function setProprietaireId(?User $proprietaireId): self
+    public function setProprietaire(?User $proprietaire): self
     {
-        $this->proprietaireId = $proprietaireId;
+        $this->proprietaire = $proprietaire;
 
         return $this;
     }
