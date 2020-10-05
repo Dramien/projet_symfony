@@ -5,20 +5,46 @@
 {% block body %}
     <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
 
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th>Categorie</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bien in biens %}
+            <tr>
+                <td>{{ bien.id }}</td>
+                <td>{{ bien.description }}</td>
+                <td>{{ bien.prix }}</td>
+                <td>{{ bien.photo }}</td>
+                <td>{{ bien.categorie }}</td>
+                <td>{{ bien.titre }}</td>
+                <td>{{ bien.type }}</td>
+                <td>
+                    <button class="btn btn-sm btn-info" style="border-radius: 10px"><a href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus...</a>
+                    <button class="btn btn-sm btn-warning"style="border-radius: 10px"><a href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Aucun bien présent</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
     {# Bloc executé seulement si je suis connecté #}
     {%if is_granted('ROLE_USER')%}
-        <div>Bonjour {{ app.user.username }}, vous êtes connecté</div>
+        <button type="button" class="btn btn-primary-color"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
     {%endif%}
-
-
-    <div class="container-fluid w-80">
-
-        <div>
-            <select class="form-control">
-                <option value="">Catégorie</option>
-                <option value="Vente">Vente</option>
-                <option value="Location">Location</option>
-            </select>
 
         </div>
 
