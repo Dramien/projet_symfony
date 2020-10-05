@@ -18,9 +18,6 @@ class BienType extends AbstractType
             ->add('categorie')
             ->add('titre')
             ->add('type')
-            ->add('proprietaireId')
-            ->add('createdAt')
-            ->add('updatedAt')
         ;
     }
 

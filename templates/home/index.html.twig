@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acccueil{% endblock %}
+
+{% block body %}
+
+	<section id="Apropos"class="row" style="background-image: url('{{ asset('maison.jpg') }}');background-attachment: fixed; background-size: cover; background-position: center center; height: 93vh;">
+        <div class="col-12 text-center my-auto mx-auto">
+          <h1 style="color: white;">Agence Immobilière</h2>
+          <button type="button" class="btn btn-orange"><a href="/contact" id="nouscontacter">Nous contacter</a></button>
+       </div>
+    </section>
+
+
+{% endblock %}

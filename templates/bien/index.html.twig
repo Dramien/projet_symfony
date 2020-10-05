@@ -3,7 +3,7 @@
 {% block title %}Bien{% endblock %}
 
 {% block body %}
-    <h1 class="text-center" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
+    <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
 
     {# Bloc executé seulement si je suis connecté #}
     {%if is_granted('ROLE_USER')%}
@@ -21,9 +21,6 @@
                 <th>Categorie</th>
                 <th>Titre</th>
                 <th>Type</th>
-                <th>ProprietaireId</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -37,9 +34,6 @@
                 <td>{{ bien.categorie }}</td>
                 <td>{{ bien.titre }}</td>
                 <td>{{ bien.type }}</td>
-                <td>{{ bien.proprietaireId }}</td>
-                <td>{{ bien.createdAt ? bien.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ bien.updatedAt ? bien.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <button class="btn btn-sm btn-info" style="border-radius: 10px"><a href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus...</a>
                     <button class="btn btn-sm btn-warning"style="border-radius: 10px"><a href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
@@ -54,4 +48,21 @@
     </table>
 
     <button type="button" class="btn btn-primary-color"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
+
+    <nav aria-label="Page navigation exampl">
+      <ul class="pagination justify-content-center mt-5">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+
+
 {% endblock %}
