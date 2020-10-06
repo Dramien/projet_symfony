@@ -29,17 +29,19 @@
 
                 {% for bien in biens %}
 
-                <div class="card col-4 mt-5 mb-3 mx-2 p-3" style="width: 18rem;">
-                  <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top" alt="">
-                  <div class="card-body">
-                    <h4 class="card-title">{{ bien.titre }}</h4>
-                    <h5 class="card-title">{{ bien.categorie }}</h5>
-                    <h5 class="card-title">{{ bien.prix }}</h5>
-                    <p class="card-text">{{ bien.description }}</p>
-                    <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
-                    <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
-                  </div>
-                </div>
+                    <div class="col-4 mb-3">
+                        <div class="card" style="width: 18rem;">
+                          <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top" alt="">
+                          <div class="card-body">
+                            <h4 class="card-title">{{ bien.titre }}</h4>
+                            <h5 class="card-title">{{ bien.categorie }}</h5>
+                            <h5 class="card-title">{{ bien.prix }}</h5>
+                            <p class="card-text">{{ bien.description }}</p>
+                            <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
+                            <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+                          </div>
+                        </div>
+                    </div>
 
                 {% else %}
                     <div>
@@ -50,7 +52,9 @@
 
             {# Bloc executé seulement si je suis connecté #}
             {%if is_granted('ROLE_USER')%}
-                <button type="button" class="btn btn-primary-color"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
+
+                <button type="button" class="btn btn-primary-color mt-5 text-center"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
+                
             {%endif%}
 
             {{ knp_pagination_render(biens) }}

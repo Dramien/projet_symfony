@@ -30,7 +30,7 @@ class BienController extends AbstractController
         $pageArticles = $paginator->paginate(
             $query, // Requête de selection des articles en BDD
             $requestedPage, // Numéro de la page dont on veux les articles
-            4 // Nombre d'articles par page
+            3 // Nombre d'articles par page
         );
 
         return $this->render('bien/index.html.twig', [
@@ -48,10 +48,10 @@ class BienController extends AbstractController
         $form = $this->createForm(BienType::class, $bien);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $bien->getphotoFile()!=null) {
             $entityManager = $this->getDoctrine()->getManager();
+            $bien-> setProprietaire($this->getUser());
             $entityManager->persist($bien);
-            dump($bien);
             $entityManager->flush();
 
             return $this->redirectToRoute('bien_index');

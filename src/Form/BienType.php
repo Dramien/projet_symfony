@@ -27,7 +27,8 @@ class BienType extends AbstractType
             ->add('type')
             ->add('description')
             ->add('prix')
-            ->add('photoFile', VichFileType::class)
+            ->add('photoFile', VichFileType::class, ['required'=>false]
+        )
         ;
     }
 
