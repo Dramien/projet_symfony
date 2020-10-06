@@ -7,10 +7,14 @@ use App\Form\UserType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+// PAGINATION
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route("/user")
@@ -21,10 +25,32 @@ class UserController extends AbstractController
      * @Route("/", name="user_index", methods={"GET"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+
+        $requestedPage = $request->query->getInt('page', 1); // pour me positionner à la page 1 directement
+
+        // si page demandée dans l'url <1, erreur 404
+        if($requestedPage < 1){
+            throw new  NotFoundHttpException();
+        }
+
+        // création d'un manager
+        $em = $this->getDoctrine()->getManager();
+
+        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
+        $query = $em->createQuery('SELECT a FROM App\Entity\User a');
+
+        // On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
+        $pageUsers = $paginator->paginate(
+            $query,     // Requête de selection des articles en BDD
+            $requestedPage,     // Numéro de la page dont on veuxles articles
+            5      // Nombre d'articles par page
+        );
+
+        // je renvois les articles récupérés
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $pageUsers
         ]);
     }
 

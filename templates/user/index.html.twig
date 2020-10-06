@@ -8,7 +8,10 @@
 
        <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Gestion des utilisateurs</h1>
 
-        <table class="table">
+       {# Affichage du nombre total d'utilisateurs #}
+       <p>Nombre total d'utilisateurs :{{ users.getTotalItemCount }}</p>
+
+        <table class="table mt-5">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -40,7 +43,7 @@
                     <td>{{ user.codePostal }}</td>
                     <td>{{ user.telephone }}</td>
                     <td>
-                        <a href="{{ path('user_show', {'id': user.id}) }}">Détail</a>
+                        <button class="btn btn-sm btn-info"style="border-radius: 10px"><a href="{{ path('user_show', {'id': user.id}) }}">Détail</a></button>
                     </td>
                 </tr>
             {% else %}
@@ -51,6 +54,15 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary-color"><a href="{{ path('user_new') }}">Créer un nouvel utilisateur</a></button>
+            {# Affichage du menu de navigation de knp_paginator #}
+    <div class="row">
+        <div class="col-12 my-3 text-center">
+            <div class="d-inline-block">
+                {{ knp_pagination_render(users) }}
+            </div>
+        </div>
+    </div>
+
+        <button type="button" class="btn btn-primary-color" style="border-radius: 10px"><a href="{{ path('user_new') }}">Créer un nouvel utilisateur</a></button>
     </div>
 {% endblock %}
