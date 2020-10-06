@@ -99,7 +99,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        // Quand l'authentification à réussie, je renvois sur la page index
+        // Quand l'authentification à réussie, je renvois sur la page des biens
         return new RedirectResponse($this->urlGenerator->generate('bien_index'));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

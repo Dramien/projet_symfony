@@ -16,10 +16,6 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
@@ -59,7 +55,7 @@
         </tbody>
     </table>
 
-     <button class="btn btn-md btn-info" style="border-radius: 10px"><a href="{{ path('user_index') }}">Retour à la liste</a></button>
+    <button class="btn btn-md btn-info" style="border-radius: 10px"><a href="{{ path('user_index') }}">Retour à la liste</a></button>
 
     <button class="btn btn-md btn-warning" style="border-radius: 10px"><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a></button>
 
