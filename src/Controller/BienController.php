@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/bien")
@@ -39,6 +40,7 @@ class BienController extends AbstractController
 
     /**
      * @Route("/new", name="bien_new", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function new(Request $request): Response
     {
@@ -73,6 +75,7 @@ class BienController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="bien_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function edit(Request $request, Bien $bien): Response
     {
@@ -93,6 +96,7 @@ class BienController extends AbstractController
 
     /**
      * @Route("/{id}", name="bien_delete", methods={"DELETE"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function delete(Request $request, Bien $bien): Response
     {
