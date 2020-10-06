@@ -6,124 +6,55 @@
 
     <div class="container mt-5">
 
+        {# Affichage du nombre total de biens #}
+        <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre de biens : {{ biens.getTotalItemCount }} </p>
+
         <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
 
-        <table class="table mt-5">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Description</th>
-                    <th>Prix</th>
-                    <th>Photo</th>
-                    <th>Categorie</th>
-                    <th>Titre</th>
-                    <th>Type</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for bien in biens %}
-                <tr>
-                    <td>{{ bien.id }}</td>
-                    <td>{{ bien.description }}</td>
-                    <td>{{ bien.prix }}</td>
-                    <td>{{ bien.photo }}</td>
-                    <td>{{ bien.categorie }}</td>
-                    <td>{{ bien.titre }}</td>
-                    <td>{{ bien.type }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info" style="border-radius: 10px"><a href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus...</a></button>
-                        <button class="btn btn-sm btn-warning"style="border-radius: 10px"><a href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a></button>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="11">Aucun bien présent</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
 
-        {# Bloc executé seulement si je suis connecté #}
-        {%if is_granted('ROLE_USER')%}
-            <button type="button" class="btn btn-primary-color"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
-        {%endif%}
-
-        {{ knp_pagination_render(biens) }}
-
-            </div>
-
-            {# <div class="row">
-
-                {% for bien in biens %}
-
-                    <div class="card col-3 mt-5 mx-2 p-3" style="width: 18rem;">
-                      <img src="maison.jpg" class="card-img-top" alt="">
-                      <div class="card-body">
-                        <h4 class="card-title">{{ bien.titre }}</h4>
-                        <h5 class="card-title">{{ bien.categorie }}</h5>
-                        <h5 class="card-title">{{ bien.prix }}</h5>
-                        <p class="card-text">{{ bien.description }}</p>
-                        <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
-                        <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
-                      </div>
-                    </div>
-
-                {% else %}
-                    <div>
-                        <p>Aucun bien présent</p>
-                    </div>
-                {% endfor %}
-
-            </div>
+            <div class="col-8 offset-2">
+            
+                <p class="text-center my-3">
+                
+                    <span class="mx-2">
+                    {{ knp_pagination_sortable(biens, 'Trier par Catégorie',
+                    'a.categorie') }}
+                    </span>
+                    
+                </p>
+             </div>
 
             <div class="row">
 
                 {% for bien in biens %}
 
-                    <div class="card col-3 mt-5 mx-2 p-3" style="width: 18rem;">
-                      <img src="maison.jpg" class="card-img-top" alt="">
-                      <div class="card-body">
-                        <h4 class="card-title">{{ bien.titre }}</h4>
-                        <h5 class="card-title">{{ bien.categorie }}</h5>
-                        <h5 class="card-title">{{ bien.prix }}</h5>
-                        <p class="card-text">{{ bien.description }}</p>
-                        <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
-                        <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
-                      </div>
-                    </div>
+                <div class="card col-4 mt-5 mb-3 mx-2 p-3" style="width: 18rem;">
+                  <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top" alt="">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ bien.titre }}</h4>
+                    <h5 class="card-title">{{ bien.categorie }}</h5>
+                    <h5 class="card-title">{{ bien.prix }}</h5>
+                    <p class="card-text">{{ bien.description }}</p>
+                    <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
+                    <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+                  </div>
+                </div>
 
                 {% else %}
                     <div>
                         <p>Aucun bien présent</p>
                     </div>
-                {% endfor %}
-
+                {% endfor %}          
             </div>
 
-            <div class="row">
+            {# Bloc executé seulement si je suis connecté #}
+            {%if is_granted('ROLE_USER')%}
+                <button type="button" class="btn btn-primary-color"><a href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a></button>
+            {%endif%}
 
-                {% for bien in biens %}
+            {{ knp_pagination_render(biens) }}
 
-                    <div class="card col-3 mt-5 mx-2 p-3" style="width: 18rem;">
-                      <img src="maison.jpg" class="card-img-top" alt="">
-                      <div class="card-body">
-                        <h4 class="card-title">{{ bien.titre }}</h4>
-                        <h5 class="card-title">{{ bien.categorie }}</h5>
-                        <h5 class="card-title">{{ bien.prix }}</h5>
-                        <p class="card-text">{{ bien.description }}</p>
-                        <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
-                        <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
-                      </div>
-                    </div> #}
-
-                {# {% else %}
-                    <div>
-                        <p>Aucun bien présent</p>
-                    </div>
-                {% endfor %} #}
-
-            </div>
         </div>
     </div>
 

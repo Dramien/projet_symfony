@@ -22,8 +22,6 @@ class BienController extends AbstractController
      */
     public function index(BienRepository $bienRepository, Request $request, PaginatorInterface $paginator): Response
     {
-       
-
         $requestedPage = $request->query->getInt('page', 1);
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('SELECT a FROM App\Entity\Bien a');
@@ -51,9 +49,10 @@ class BienController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);
+            dump($bien);
             $entityManager->flush();
 
-            return $this->redirectToRoute('bien_index');
+            /*return $this->redirectToRoute('bien_index');*/
         }
 
         return $this->render('bien/new.html.twig', [
