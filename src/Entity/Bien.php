@@ -4,33 +4,48 @@ namespace App\Entity;
 
 use App\Repository\BienRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
- */
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
+*/
 class Bien
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */
+    */
     private $id;
 
     /**
      * @ORM\Column(type="text")
-     */
+    */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
-     */
+    */
     private $prix;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $photo;
+
+    /**
+     * 
+     * @Vich\UploadableField(mapping="biens_images", fileNameProperty="photo")
+     * 
+     * @var File
+     */
+    private $photoFile;
 
     /**
      * @ORM\Column(type="string", length=10)
@@ -92,17 +107,47 @@ class Bien
         return $this;
     }
 
+    /**
+    *
+    * @return string|null
+    */
     public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    /**
+    *
+    * @param string $photo
+    */
+    public function setPhoto(?string $photo): void
     {
         $this->photo = $photo;
+    }
 
+    /**
+    * @return null
+    */
+    public function getPhotoFile(): ?File
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     *
+     * @param File $photoFile
+     */
+    public function setPhotoFile(?File $photoFile = null)
+    {
+        $this->photoFile = $photoFile;
+
+        if (null !== $photoFile) {
+          
+            $this->updatedAt = new \DateTime('now');
+        }
         return $this;
     }
+
 
     public function getCategorie(): ?string
     {
@@ -145,9 +190,13 @@ class Bien
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+    *
+    * @ORM\PrePersist
+    */
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime ();
 
         return $this;
     }
@@ -157,9 +206,13 @@ class Bien
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    /**
+    *
+    * @ORM\PreUpdate
+    */
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime ();
 
         return $this;
     }
