@@ -8,7 +8,11 @@
 
 	    <h1>Modifier un bien immobilier</h1>
 
+	    {% if is_granted('ROLE_USER') %}
+
 	    {{ include('bien/_form.html.twig', {'button_label': 'Update'}) }}
+
+		{% endif %}
 
 	    <button class="btn btn-md btn-info" style="border-radius: 10px"><a href="{{ path('bien_index') }}">Retour à la liste</a></button>
 
