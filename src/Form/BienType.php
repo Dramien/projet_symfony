@@ -18,7 +18,6 @@ class BienType extends AbstractType
             ->add('description')
             ->add('prix')
             ->add('photo')
-            ->add('createdat')
         ;
     }
 

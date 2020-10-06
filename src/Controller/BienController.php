@@ -6,10 +6,10 @@ use App\Entity\Bien;
 use App\Form\BienType;
 use App\Repository\BienRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp \Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -21,10 +21,22 @@ class BienController extends AbstractController
     /**
      * @Route("/", name="bien_index", methods={"GET"})
      */
-    public function index(BienRepository $bienRepository): Response
+    public function index(BienRepository $bienRepository, Request $request, PaginatorInterface $paginator): Response
     {
+       
+
+        $requestedPage = $request->query->getInt('page', 1);
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT a FROM App\Entity\Bien a');
+
+        $pageArticles = $paginator->paginate(
+            $query, // Requête de selection des articles en BDD
+            $requestedPage, // Numéro de la page dont on veux les articles
+            4 // Nombre d'articles par page
+        );
+
         return $this->render('bien/index.html.twig', [
-            'biens' => $bienRepository->findAll(),
+            'biens' => $pageArticles
         ]);
     }
 
@@ -96,7 +108,5 @@ class BienController extends AbstractController
         }
 
         return $this->redirectToRoute('bien_index');
-    }
-
-
+    }        
 }
