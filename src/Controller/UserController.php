@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Search;
+use App\Form\SearchType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +29,10 @@ class UserController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
+
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
 
         $requestedPage = $request->query->getInt('page', 1); // pour me positionner à la page 1 directement
 

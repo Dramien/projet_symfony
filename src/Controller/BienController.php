@@ -54,7 +54,7 @@ class BienController extends AbstractController
             dump($bien);
             $entityManager->flush();
 
-            /*return $this->redirectToRoute('bien_index');*/
+            return $this->redirectToRoute('bien_index');
         }
 
         return $this->render('bien/new.html.twig', [
@@ -107,5 +107,5 @@ class BienController extends AbstractController
         }
 
         return $this->redirectToRoute('bien_index');
-    }        
+    }
 }
