@@ -35,29 +35,19 @@ class UserController extends AbstractController
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
 
-        $requestedPage = $request->query->getInt('page', 1); // pour me positionner à la page 1 directement
-
-        // si page demandée dans l'url <1, erreur 404
-        if($requestedPage < 1){
-            throw new  NotFoundHttpException();
-        }
-
-        // création d'un manager
-        $em = $this->getDoctrine()->getManager();
-
-        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
-        $query = $em->createQuery('SELECT a FROM App\Entity\User a');
-
-        // On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
-        $pageUsers = $paginator->paginate(
-            $query,     // Requête de selection des articles en BDD
-            $requestedPage,     // Numéro de la page dont on veuxles articles
-            5      // Nombre d'articles par page
+        $query = $this->getDoctrine()->getRepository(User::class)->findPaginateUser($search);
+        $requestedPage = $request->query->getInt('page', 1);
+         
+        // Pagination du tableau de users
+        $users = $paginator->paginate(
+            $query,             // Requête créée précedemment
+            $requestedPage,     // Numéro de la page demandée
+            5              // Nombre d'users affichés par page
         );
 
-        // je renvois les articles récupérés
         return $this->render('user/index.html.twig', [
-            'users' => $pageUsers
+            'users' => $users,
+            'form' => $form->createView(),
         ]);
     }
 

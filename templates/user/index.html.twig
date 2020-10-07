@@ -8,9 +8,27 @@
 
        <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Gestion des utilisateurs</h1>
 
-       {# Affichage du nombre total d'utilisateurs #}
-       <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre d'utilisateurs : {{ users.getTotalItemCount }} </p>
 
+
+       {# le formulaire de recherche #}
+       <div class="jumbotron p-3">
+           <div class="container">
+               {{ form_start(form) }}
+               <div class="form-row">
+                   <div class="col">
+                       {{ form_row(form.searchEmail) }}
+                   </div>
+                   <div class="col">
+                       <button class="btn btn-primary">Rechercher</button>
+                   </div>
+               </div>
+               {{ form_end(form) }}
+           </div>
+           {# Affichage du nombre total d'utilisateurs #}
+           <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre d'utilisateurs : {{ users.getTotalItemCount }} </p>
+       </div>
+
+        {# la table des users #}
         <table class="table mt-5">
             <thead>
                 <tr>
