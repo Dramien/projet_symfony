@@ -2,3 +2,20 @@
 {
 	opacity: 1!important;
 }
+
+.card-img-top
+{
+	overflow: hidden;
+	object-fit: cover;
+
+}
+
+.card-text
+{
+	overflow: hidden;
+}
+
+.card-body
+{
+	min-height: initial;
+}
