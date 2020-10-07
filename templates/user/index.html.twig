@@ -6,20 +6,20 @@
 
     <div class="container mt-5">
 
-       <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Gestion des utilisateurs</h1>
+       <h1 class="text-center mt-5 p-5" style="font-family: 'Montserrat';">Gestion des utilisateurs</h1>
 
 
 
        {# le formulaire de recherche #}
-       <div class="jumbotron p-3">
+       <div class="jumbotron mx-auto col-6 p-3">
            <div class="container">
                {{ form_start(form) }}
-               <div class="form-row">
+               <div class="input-group-btn">
                    <div class="col">
                        {{ form_row(form.searchEmail) }}
                    </div>
                    <div class="col">
-                       <button class="btn btn-primary">Rechercher</button>
+                       <button type="submit" class="btn btn-info"><span class="fa fa-search"></span> Chercher</button>
                    </div>
                </div>
                {{ form_end(form) }}
@@ -29,7 +29,7 @@
        </div>
 
         {# la table des users #}
-        <table class="table mt-5">
+        <table class="table mt-5 col-6 mx-auto">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -61,7 +61,7 @@
                     <td>{{ user.codePostal }}</td>
                     <td>{{ user.telephone }}</td>
                     <td>
-                        <button class="btn btn-sm btn-info"style="border-radius: 10px"><a href="{{ path('user_show', {'id': user.id}) }}">Détail</a></button>
+                        <button class="btn btn-sm btn-info"style="border-radius: 10px"><a href="{{ path('user_show', {'id': user.id}) }}"><i class="fas fa-eye fa-2x"></i></a></button>
                     </td>
                 </tr>
             {% else %}
@@ -81,6 +81,6 @@
         </div>
     </div>
 
-        <button type="button" class="btn btn-primary-color" style="border-radius: 10px"><a href="{{ path('user_new') }}">Créer un nouvel utilisateur</a></button>
+        <button type="button" class="btn btn-primary" style="border-radius: 10px"><a href="{{ path('user_new') }}">Ajouter un nouvel utilisateur</a></button>
     </div>
 {% endblock %}

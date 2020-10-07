@@ -65,12 +65,12 @@ class UserFixtures extends Fixture
       $user = new User(); // je crée un user
       $user
         -> setUsername($faker -> userName())
-        -> setTitre( $faker -> title($gender = 'Mr'|'Mme') )
+        -> setTitre( $faker -> title($gender = 'male'|'female') )
         -> setPrenom( $faker -> firstName() )
         -> setNom( $faker -> lastName() )
         -> setAdresse( $faker -> streetAddress() )
         -> setVille( $faker -> city() )
-        -> setCodePostal( $faker -> postcode(5) )
+        -> setCodePostal( $faker -> numberBetween($min = 00000, $max = 99999) )
         -> setTelephone( $faker -> phoneNumber(10) )
         ->setEmail( $faker -> email() ) // je set l'email avec un mail aléatoire généré par le faker
         ->setPassword( $faker -> password() ); // je set le pass avec un pass aléatoire généré par le faker
