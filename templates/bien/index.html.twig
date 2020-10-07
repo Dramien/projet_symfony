@@ -33,14 +33,16 @@
 
                     {% for bien in biens %}
 
-                        <div class="col-4 mb-3">
-                            <div class="card" style="width: 18rem;">
-                              <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top" alt="">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <div class="card h-100">
+                                <div class="container-fluid p-0 h-50">
+                                    <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top h-100 w-100" alt="">
+                                </div>
                               <div class="card-body">
                                 <h4 class="card-title">{{ bien.titre }}</h4>
                                 <h5 class="card-title">{{ bien.categorie }}</h5>
                                 <h5 class="card-title">{{ bien.prix }} €</h5>
-                                <p class="card-text">{{ bien.description }}</p>
+                                <p class="card-text p-0 m-0">{{ bien.description }}</p>
                                 <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
                                 {# Bloc executé seulement si je suis connecté #}
                                 {%if is_granted('ROLE_USER')%}
