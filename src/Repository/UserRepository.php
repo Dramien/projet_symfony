@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Search;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -35,6 +36,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    /**
+     * @return Query
+     * fonction pour rechercher un utilisateur par son email
+     */
+    public function findPaginateUser(Search $search)
+    {
+        $query = $this->createQueryBuilder('users')
+                    ->andWhere('users.email LIKE :searchEmail')
+                    -> orderBy('users.nom')
+                    ->setParameter('searchEmail', '%'.addcslashes($search->getSearchEmail(), '%_').'%');
+
+        return $query->getQuery();
+    }
+
+
+
+
+
+
+
 
     // /**
     //  * @return User[] Returns an array of User objects
