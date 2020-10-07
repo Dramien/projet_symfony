@@ -38,7 +38,10 @@
                             <h5 class="card-title">{{ bien.prix }}</h5>
                             <p class="card-text">{{ bien.description }}</p>
                             <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
+                            {# Bloc executé seulement si je suis connecté #}
+                            {%if is_granted('ROLE_USER')%}
                             <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+                            {% endif %}
                           </div>
                         </div>
                     </div>
