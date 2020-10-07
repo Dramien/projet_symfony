@@ -6,74 +6,78 @@
 
 
 <div class="container-fluid min-vh-100" style="background-image: url('{{ asset('slider2.jpg') }}');background-attachment: fixed; background-size: cover; background-position: center center; opacity: 0.8">
+    
     <div class="row">
         
-   
-    <div class="container mt-5">
+        <div class="container mt-5">
 
 
-        {# Affichage du nombre total de biens #}
-        <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre de biens : {{ biens.getTotalItemCount }} </p>
+            {# Affichage du nombre total de biens #}
+            <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre de biens : {{ biens.getTotalItemCount }} </p>
 
-        <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
-
-        <div class="row">
-
-            <div class="col-8 offset-2">
-            
-                <p class="text-center my-3">
-                
-                    <span class="mx-2">
-                    {{ knp_pagination_sortable(biens, 'Trier par Catégorie',
-                    'a.categorie') }}
-                    </span>
-                    
-                </p>
-             </div>
+            <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
 
             <div class="row">
 
-                {% for bien in biens %}
-
-                    <div class="col-4 mb-3">
-                        <div class="card" style="width: 18rem;">
-                          <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top" alt="">
-                          <div class="card-body">
-                            <h4 class="card-title">{{ bien.titre }}</h4>
-                            <h5 class="card-title">{{ bien.categorie }}</h5>
-                            <h5 class="card-title">{{ bien.prix }} €</h5>
-                            <p class="card-text">{{ bien.description }}</p>
-                            <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
-                            {# Bloc executé seulement si je suis connecté #}
-                            {%if is_granted('ROLE_USER')%}
-                            <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
-                            {% endif %}
-                          </div>
-                        </div>
-                    </div>
-
-                {% else %}
-                    <div>
-                        <p>Aucun bien présent</p>
-                    </div>
-                {% endfor %}          
-            </div>
-
-            {# Bloc executé seulement si je suis connecté #}
-            {%if is_granted('ROLE_USER')%}
-
-                <div class="col-12 text-center">
-
-                    <a class="btn btn-primary white mt-5 text-center" href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a>
-
-                </div>
+                <div class="col-12">
                 
-            {%endif%}
+                    <p class="text-center my-3">
+                    
+                        <span class="mx-2">
+                        {{ knp_pagination_sortable(biens, 'Trier par Catégorie',
+                        'a.categorie') }}
+                        </span>
+                        
+                    </p>
+                 </div>
 
-            {{ knp_pagination_render(biens) }}
+                    {% for bien in biens %}
 
+                        <div class="col-4 mb-3">
+                            <div class="card" style="width: 18rem;">
+                              <img src="{{ vich_uploader_asset(bien, 'photoFile') }}" class="card-img-top" alt="">
+                              <div class="card-body">
+                                <h4 class="card-title">{{ bien.titre }}</h4>
+                                <h5 class="card-title">{{ bien.categorie }}</h5>
+                                <h5 class="card-title">{{ bien.prix }} €</h5>
+                                <p class="card-text">{{ bien.description }}</p>
+                                <a class="btn btn-sm btn-info" style="border-radius: 10px" href="{{ path('bien_show', {'id': bien.id}) }}">En savoir plus</a>
+                                {# Bloc executé seulement si je suis connecté #}
+                                {%if is_granted('ROLE_USER')%}
+                                <a class="btn btn-sm btn-warning" style="border-radius: 10px" href="{{ path('bien_edit', {'id': bien.id}) }}">Modifier</a>
+                                {% endif %}
+                              </div>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <div>
+                            <p>Aucun bien présent</p>
+                        </div>
+                    {% endfor %}          
+
+                {# Bloc executé seulement si je suis connecté #}
+                {%if is_granted('ROLE_USER')%}
+
+                    <div class="col-12 text-center">
+
+                        <a class="btn btn-primary white mt-5 text-center" href="{{ path('bien_new') }}">Ajouter un nouveau bien immobilier</a>
+
+                    </div>
+                    
+                {%endif%}
+
+            </div>
         </div>
     </div>
- </div>
+
+    <div class="row my-3">
+        <div class="col-12 text-center">
+            <div class="d-inline-block">
+                {{ knp_pagination_render(biens) }}
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
