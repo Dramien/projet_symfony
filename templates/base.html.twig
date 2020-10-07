@@ -20,93 +20,89 @@
 	  {% endblock %}
 	</head>
 
-    <body style="font-family: 'Montserrat';">
+  <body class="min-vh-100" style="font-family: 'Montserrat';">
 
-        <header class="container-fluid p-0" style="font-family: 'Montserrat';">
+    <header class="container-fluid p-0" style="font-family: 'Montserrat';">
 
-<body style="font-family: 'Montserrat';">
+      {% block header %}
+  			<nav class="navbar navbar-expand-lg navbar-dark primary-color-dark">
+      		<a class="navbar-brand " href="/home">Accueil</a>
 
-  <header class="container-fluid p-0" style="font-family: 'Montserrat';">
+      		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+  	      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      	  <span class="navbar-toggler-icon"></span>
+          </button>
 
-    {% block header %}
-			<nav class="navbar navbar-expand-lg navbar-dark primary-color-dark">
-    		<a class="navbar-brand " href="/home">Accueil</a>
+          <div class="collapse navbar-collapse" id="basicExampleNav">
+  	        <ul class="navbar-nav mr-auto">
 
-    		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-	      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-    	  <span class="navbar-toggler-icon"></span>
-        </button>
+            {# si je suis connecté je peux gérer mes annonces #}
+            {% if is_granted('ROLE_USER') %}
+              <li class="nav-item">
+                <a class="nav-link" href="/bien">Gérer mes annonces</a>
+              </li>
+            {% else %}
+              {# sinon je peux juste consulter les annonces #}
+      	    	<li class="nav-item">
+              	<a class="nav-link" href="/bien">Découvrir nos annonces</a>
+      	    	</li>
+            {% endif %}
 
-        <div class="collapse navbar-collapse" id="basicExampleNav">
-	        <ul class="navbar-nav mr-auto">
+      	    </ul>
+        	</div>
 
-          {# si je suis connecté je peux gérer mes annonces #}
-          {% if is_granted('ROLE_USER') %}
-            <li class="nav-item">
-              <a class="nav-link" href="/bien">Gérer mes annonces</a>
-            </li>
-          {% else %}
-            {# sinon je peux juste consulter les annonces #}
-    	    	<li class="nav-item">
-            	<a class="nav-link" href="/bien">Découvrir nos annonces</a>
-    	    	</li>
-          {% endif %}
+    	    <div class="collapse navbar-collapse d-flex justify-content-end" id="basicExampleNav">
+      	    <ul class="navbar-nav ml-auto" style="display: contents!important;">
 
-    	    </ul>
-      	</div>
+            {# si je suis connecté en ADMIN #}
+            {% if is_granted('ROLE_ADMIN') %}
 
-  	    <div class="collapse navbar-collapse" id="basicExampleNav">
-    	    <ul class="navbar-nav ml-auto">
-
-          {# si je suis connecté en ADMIN #}
-          {% if is_granted('ROLE_ADMIN') %}
-
-            <li class="nav-item" style="color:white"> Bienvenue {{ app.user.username }}, vous êtes ADMINISRATEUR du site</li>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                ADMINISTRATION
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/user">Gérer les utilisateurs</a>
-                <a class="dropdown-item" href="/bien">Gérer les biens</a>
-                <a class="dropdown-item" href="/logout">Se déconnecter</a>
+              <li class="nav-item" style="color:white"> Bienvenue {{ app.user.username }}, vous êtes ADMINISRATEUR du site</li>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ADMINISTRATION
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/user">Gérer les utilisateurs</a>
+                  <a class="dropdown-item" href="/bien">Gérer les biens</a>
+                  <a class="dropdown-item" href="/logout">Se déconnecter</a>
+                </div>
               </div>
-            </div>
 
-          {# sinon si je suis connecté, présentation du nom #}
-          {% elseif is_granted('ROLE_USER') %}
-            <li class="nav-item" style="color:white"> Bienvenue {{ app.user.username }}, vous êtes connecté comme UTILISATEUR</li>
-            <div><a class="nav-link" href="/logout">Déconnexion</a></div>
+            {# sinon si je suis connecté, présentation du nom #}
+            {% elseif is_granted('ROLE_USER') %}
+              <li style="color:white"> Bienvenue {{ app.user.username }}, vous êtes connecté comme UTILISATEUR</li>
+              <li><a class="nav-link" style="color:white" href="/logout">Déconnexion</a></li>
 
-          {# si je suis juste un visiteur #}
-          {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Se connecter</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Créer un compte</a>
-            </li>
+            {# si je suis juste un visiteur #}
+            {% else %}
+              <li class="nav-item">
+                  <a class="nav-link" href="/login">Se connecter</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/register">Créer un compte</a>
+              </li>
 
-          {% endif %}
+            {% endif %}
 
-    	    </ul>
-  	    </div>
+      	    </ul>
+    	    </div>
 
-	    </nav>
+  	    </nav>
 
-  	{% endblock %}
+    	{% endblock %}
+    </header>
 
-    {% block body %}
-    {% endblock %}
+      {% block body %}
+      {% endblock %}
 
-  </header>
 
-    {% block javascripts %}
-    	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    {% endblock %}
+      {% block javascripts %}
+      	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      {% endblock %}
 
-</body>
+  </body>
 
 </html>
