@@ -10,8 +10,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
-  private $nbUsers = 10;
-  private $nbBiens = 50 ;
+  private $nbUsers = 30;
+  private $nbBiens = 50;
   private $encoder;
 
 
