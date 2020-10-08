@@ -141,6 +141,13 @@ class User implements UserInterface
         return $this;
     }
 
+    // fonction pour vérifier si je suis admin
+    public function isAdmin(User $user = null)
+    {
+        // si $user existe ET que 'ROLE_ADMIN' est dans le tableau des roles (il est admin)
+        return $user && in_array( 'ROLE_ADMIN', $this->getRoles() ); // je retourne TRUE
+    } // sinon je retourne FALSE
+
     /**
      * A visual identifier that represents this user.
      *

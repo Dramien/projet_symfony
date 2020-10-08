@@ -40,9 +40,9 @@ class Bien
     private $photo;
 
     /**
-     * 
+     *
      * @Vich\UploadableField(mapping="biens_images", fileNameProperty="photo")
-     * 
+     *
      * @var File
      */
     private $photoFile;
@@ -77,6 +77,12 @@ class Bien
      * @ORM\JoinColumn(nullable=false)
      */
     private $proprietaire;
+
+    // fonction pour vérifier la correspondances des id de user et bien
+    public function isProprietaire(User $user = null)
+    {
+        return $user && $user === $this->getProprietaire();
+    }
 
     public function getId(): ?int
     {
@@ -142,7 +148,7 @@ class Bien
         $this->photoFile = $photoFile;
 
         if (null !== $photoFile) {
-          
+
             $this->updatedAt = new \DateTime('now');
         }
         return $this;
