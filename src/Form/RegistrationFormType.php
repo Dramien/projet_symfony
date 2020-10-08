@@ -25,8 +25,8 @@ class RegistrationFormType extends AbstractType
 
             ->add('titre', ChoiceType::class, [
                 'choices' => [
-                    'monsieur' => 'Mr',
-                    'madame' => 'Mme',
+                    'Monsieur' => 'Mr',
+                    'Madame' => 'Mme',
                 ],
                 'expanded' => true,
                 'multiple' => false,

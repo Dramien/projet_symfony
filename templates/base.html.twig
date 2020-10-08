@@ -28,7 +28,7 @@
     <header class="container-fluid p-0" style="font-family: 'Montserrat';">
 
       {% block header %}
-  			<nav class="navbar navbar-expand-lg navbar-dark primary-color-dark">
+  			<nav class=" fixed-top navbar navbar-expand-lg navbar-dark primary-color-dark">
       		<a class="navbar-brand " href="/home">Accueil</a>
 
       		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -55,16 +55,23 @@
         	</div>
 
     	    <div class="collapse navbar-collapse d-flex justify-content-end" id="basicExampleNav">
+
+            {# je gère l'apparition du titre #}
+            {% if is_granted('ROLE_ADMIN') %}
+              <div class="mx-auto" style="color:white"> {{ app.user.username }}, est ADMINISRATEUR du site</div>
+            {% elseif is_granted('ROLE_USER') %}
+              <div class="mx-auto" style="color:white">Bonjour {{ app.user.username }}</div>
+            {% else %}
+              <div class="mx-auto" style="color:white">Connectez vous ou créer un compte pour déposer vos premières annonces</div>
+            {% endif %}
+
       	    <ul class="navbar-nav ml-auto" style="display: contents!important;">
 
             {# si je suis connecté en ADMIN #}
             {% if is_granted('ROLE_ADMIN') %}
 
-              <li class="nav-item" style="color:white"> Bienvenue {{ app.user.username }}, vous êtes ADMINISRATEUR du site</li>
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  ADMINISTRATION
-                </button>
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i> ADMINISTRATION</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="/user">Gérer les utilisateurs</a>
                   <a class="dropdown-item" href="/bien">Gérer les biens</a>
@@ -74,7 +81,6 @@
 
             {# sinon si je suis connecté, présentation du nom #}
             {% elseif is_granted('ROLE_USER') %}
-              <li style="color:white"> Bienvenue {{ app.user.username }}, vous êtes connecté comme UTILISATEUR</li>
               <li><a class="nav-link" style="color:white" href="/logout">Déconnexion</a></li>
 
             {# si je suis juste un visiteur #}

@@ -1,63 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}ADMIN - Détail d'un utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Détail d'un compte utilisateur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ user.titre }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ user.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ user.nom }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ user.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ user.ville }}</td>
-            </tr>
-            <tr>
-                <th>CodePostal</th>
-                <td>{{ user.codePostal }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ user.telephone }}</td>
-            </tr>
+  <div class="container-fluid min-vh-100" style="background-image: url('{{ asset('cle.jpg') }}');
+    background-attachment: fixed; background-size: cover; background-position: center center; opacity: 0.8">
 
-        </tbody>
-    </table>
+    <h1 class="text-center mt-5 p-5" style="font-family: 'Montserrat';">Détail du compte de {{ user.prenom }}</h1>
 
-    <button class="btn btn-md btn-info" style="border-radius: 10px"><a href="{{ path('user_index') }}">Retour à la liste</a></button>
+    <ul class="list-group mt-5 col-6 mx-auto">
+        <li class="list-group-item active">{{user.titre}} {{user.nom}} {{user.prenom }}</li>
+        <li class="list-group-item">Pseudo: {{ user.username }}</li>
+        <li class="list-group-item">Id: {{user.id}} </li>
+        <li class="list-group-item">Rôle: {{ user.roles ? user.roles|json_encode : '' }}</li>
+        <li class="list-group-item">Email: {{ user.email }}</li>
+        <li class="list-group-item">Adresse: {{ user.adresse }}</li>
+        <li class="list-group-item">Ville: {{ user.ville }}</li>
+        <li class="list-group-item">Code postale: {{ user.codepostal }}</li>
+        <li class="list-group-item">Téléphone: {{ user.telephone }}</li>
+    </ul>
 
-    <button class="btn btn-md btn-warning" style="border-radius: 10px"><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a></button>
+    <div class="col-4 mx-auto">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn btn-md btn-info m-3" style="border-radius: 10px" href="{{ path('user_index') }}">Retour à la liste</a>
+            <a class="btn btn-md btn-warning m-3" style="border-radius: 10px" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
 
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

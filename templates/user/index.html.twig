@@ -1,78 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}ADMIN: Gestion des utilisateurs{% endblock %}
 
 {% block body %}
 
-    <div class="container mt-5">
+  <div class="container-fluid min-vh-100" style="background-image: url('{{ asset('cle.jpg') }}');
+    background-attachment: fixed; background-size: cover; background-position: center center; opacity: 0.8">
 
-       <h1 class="text-center mt-5 p-5" style="font-family: 'Montserrat';">Gestion des utilisateurs</h1>
+    <h1 class="text-center mt-5 p-5" style="font-family: 'Montserrat';">Gestion des utilisateurs</h1>
 
+     {# le formulaire de recherche #}
+     <div class="col-4 mx-auto p-2">
+        {{ form_start(form) }}
+        {{ form_widget(form.searchEmail) }}
+        <button type="submit" class="btn btn-info mt-4 btn-block"><i class="fa fa-search"></i> Chercher</button>
+        {{ form_end(form) }}
+      {# Affichage du nombre total d'utilisateurs #}
+      <p class="d-flex justify-content-end m-2 font-weight-bold" style="font-size: 12px">Nombre d'utilisateurs : {{ users.getTotalItemCount }} </p>
+     </div>
 
+    {# la table des users #}
+    <table class="table mt-5 col-6 mx-auto" style="background-color:#E5E5E5FF">
+        <thead class="border border-dark">
+            <tr class="border border-dark">
+                <th class="font-weight-bold">Id</th>
+                <th class="font-weight-bold">Roles</th>
+                <th class="font-weight-bold">Email</th>
+                <th class="font-weight-bold">Pseudo</th>
+                <th class="font-weight-bold">Titre</th>
+                <th class="font-weight-bold">Prenom</th>
+                <th class="font-weight-bold">Nom</th>
+                <th class="font-weight-bold">Adresse</th>
+                <th class="font-weight-bold">Ville</th>
+                <th class="font-weight-bold">CodePostal</th>
+                <th class="font-weight-bold">Telephone</th>
+                <th class="font-weight-bold">Détail</th>
+            </tr>
+        </thead>
+        <tbody class="border border-dark">
+        {% for user in users %}
+            <tr class="border border-dark">
+                <td>{{ user.id }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.titre }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.adresse }}</td>
+                <td>{{ user.ville }}</td>
+                <td>{{ user.codePostal }}</td>
+                <td>{{ user.telephone }}</td>
+                <td>
+                    <button class="btn btn-sm btn-info"style="border-radius: 10px"><a href="{{ path('user_show', {'id': user.id}) }}"><i class="fas fa-eye fa-2x"></i></a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="22">Aucun utilisateur enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-       {# le formulaire de recherche #}
-       <div class="jumbotron mx-auto col-6 p-3">
-           <div class="container">
-               {{ form_start(form) }}
-               <div class="input-group-btn">
-                   <div class="col">
-                       {{ form_row(form.searchEmail) }}
-                   </div>
-                   <div class="col">
-                       <button type="submit" class="btn btn-info"><span class="fa fa-search"></span> Chercher</button>
-                   </div>
-               </div>
-               {{ form_end(form) }}
-           </div>
-           {# Affichage du nombre total d'utilisateurs #}
-           <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre d'utilisateurs : {{ users.getTotalItemCount }} </p>
-       </div>
-
-        {# la table des users #}
-        <table class="table mt-5 col-6 mx-auto">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Roles</th>
-                    <th>Email</th>
-                    <th>Pseudo</th>
-                    <th>Titre</th>
-                    <th>Prenom</th>
-                    <th>Nom</th>
-                    <th>Adresse</th>
-                    <th>Ville</th>
-                    <th>CodePostal</th>
-                    <th>Telephone</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.titre }}</td>
-                    <td>{{ user.prenom }}</td>
-                    <td>{{ user.nom }}</td>
-                    <td>{{ user.adresse }}</td>
-                    <td>{{ user.ville }}</td>
-                    <td>{{ user.codePostal }}</td>
-                    <td>{{ user.telephone }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info"style="border-radius: 10px"><a href="{{ path('user_show', {'id': user.id}) }}"><i class="fas fa-eye fa-2x"></i></a></button>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="22">Aucun utilisateur enregistré</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-            {# Affichage du menu de navigation de knp_paginator #}
+    {# Affichage du menu de navigation de knp_paginator #}
     <div class="row">
         <div class="col-12 my-3 text-center">
             <div class="d-inline-block">
@@ -81,6 +72,10 @@
         </div>
     </div>
 
-        <button type="button" class="btn btn-primary" style="border-radius: 10px"><a href="{{ path('user_new') }}">Ajouter un nouvel utilisateur</a></button>
+    <div class="text-center">
+      <a class="btn btn-info" style="border-radius: 10px" href="{{ path('user_new') }}"><i class="fas fa-plus-circle"></i> Ajouter un nouvel utilisateur</a>
     </div>
+
+  </div>
+
 {% endblock %}

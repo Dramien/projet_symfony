@@ -19,3 +19,13 @@
 {
 	min-height: initial;
 }
+
+.form-check{
+  display: inline;
+  margin: 0 10px;
+}
+
+#registration_form_titre{
+  margin: 0 0 10px 0;
+
+}
