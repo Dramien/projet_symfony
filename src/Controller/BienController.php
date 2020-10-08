@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Bien;
 use App\Entity\Search;
-use App\Form\SearchType;
+use App\Form\SearchBienType;
 use App\Form\BienType;
 use App\Repository\BienRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,24 +27,21 @@ class BienController extends AbstractController
     {
 
         $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
+        $form = $this->createForm(SearchBienType::class, $search);
         $form->handleRequest($request);
 
         $query = $this->getDoctrine()->getRepository(Bien::class)->findPaginateBien($search);
         $requestedPage = $request->query->getInt('page', 1);
-
-
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT a FROM App\Entity\Bien a');
-
-        $pageBiens = $paginator->paginate(
-            $query, // Requête de selection des biens en BDD
-            $requestedPage, // Numéro de la page dont on veux les biens
-            3 // Nombre dde biens par page
+         
+        // Pagination du tableau de users
+        $biens = $paginator->paginate(
+            $query,             // Requête créée précedemment
+            $requestedPage,     // Numéro de la page demandée
+            3              // Nombre de biens affichés par page
         );
 
         return $this->render('bien/index.html.twig', [
-            'biens' => $pageBiens,
+            'biens' => $biens,
             'form' => $form->createView(),
         ]);
     }
