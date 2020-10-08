@@ -18,6 +18,18 @@ class SearchType extends AbstractType
                 'required' => false,
                 'attr' => ['placeholder' => 'entrer un email à rechercher'],
             ])
+
+            ->add('searchTitre', TextType::class, [ 
+                'required' => false, 'attr' => ['placeholder' => 'Cherchez par titres'],
+            ])
+
+            ->add('searchCategorie', TextType::class, [ 
+                'required' => false, 'attr' => ['placeholder' => 'Cherchez par catégories'],
+            ])
+
+            ->add('searchPrix', TextType::class, [ 
+                'required' => false, 'attr' => ['placeholder' => 'Cherchez par prix'],
+            ])
         ;
     }
 
