@@ -33,7 +33,7 @@ class BienController extends AbstractController
 
         $query = $this->getDoctrine()->getRepository(Bien::class)->findPaginateBien($search);
         $requestedPage = $request->query->getInt('page', 1);
-         
+
         // Pagination du tableau de users
         $biens = $paginator->paginate(
             $query,             // Requête créée précedemment
@@ -106,7 +106,7 @@ class BienController extends AbstractController
             ]);
 
         } else{
-            $this->addFlash('success', 'Fuck');
+            $this->addFlash('warning', 'Vous ne pouvez modifier que vos annonces');
             return $this->redirectToRoute('bien_index');
 
         }

@@ -4,16 +4,6 @@
 
 {% block body %}
 
- {# read and display all flash messages #}
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="flash-{{ label }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
-
 <div class="container-fluid min-vh-100" style="background-image: url('{{ asset('cle.jpg') }}');background-attachment: fixed; background-size: cover; background-position: center center; opacity: 0.8">
 
     <div class="row">
@@ -40,6 +30,15 @@
             <p class="d-flex justify-content-end m-0 p-5" style="font-size: 12px">Nombre de biens : {{ biens.getTotalItemCount }} </p>
 
             <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
+
+            {# read and display all flash messages #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="col-5 mx-auto alert alert-warning text-danger text-center flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
 
             <div class="row">
 
