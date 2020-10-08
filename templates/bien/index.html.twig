@@ -31,11 +31,6 @@
                 </div>
             </div>
 
-            {# Affichage du nombre total de biens #}
-            <p class="d-flex justify-content-end m-0 p-5" style="font-size: 12px">Nombre de biens : {{ biens.getTotalItemCount }} </p>
-
-            <h1 class="text-center mt-5" style="font-family: 'Montserrat';">Biens immobiliers disponibles</h1>
-
             {# read and display all flash messages #}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
