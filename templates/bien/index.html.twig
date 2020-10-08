@@ -11,6 +11,22 @@
         
         <div class="container mt-5">
 
+            <div class="col-12 d-inline-block">
+                <form class="form-inline">
+                    {{ form_start(form) }}
+
+                        {{ form_label(form.searchTitre, null, { 'label': 'Votre recherche :', 'label_attr': {'class': 'text-default col-sm-3'} }) }}
+                        {{ form_widget(form.searchTitre) }}
+
+                        {{ form_widget(form.searchCategorie) }}
+
+                        {{ form_widget(form.searchPrix) }}
+
+                        <button class="btn btn-md btn-default my-2 my-sm-0 ml-3" type="submit"><i class="fas fa-search"></i></button>
+
+                    {{ form_end(form) }}
+                </form>
+            </div>
 
             {# Affichage du nombre total de biens #}
             <p class="d-flex justify-content-end m-0" style="font-size: 12px">Nombre de biens : {{ biens.getTotalItemCount }} </p>

@@ -4,6 +4,6 @@
     {{ form_row(form.type) }}
     {{ form_row(form.description) }}
     {{ form_row(form.prix) }}
-    {{ form_row(form.photoFile) }}
+    {{ form_row(form.photoFile, {label: 'Photo'}) }}
    	<button class="btn btn-md btn-primary" style="border-radius: 10px">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
