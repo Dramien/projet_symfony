@@ -25,14 +25,16 @@ class BienRepository extends ServiceEntityRepository
      */
     public function findPaginateBien(Search $search)
     {
-        $query = $this->createQueryBuilder('a')
-                     ->innerJoin('a.titre', 'u')
-                     ->addSelect('u')
-                     ->orderBy('a.createdAt', 'DESC');
 
-        if ($search->getSearchTitre()) {
-            $query = $query->andWhere('a.titre LIKE :searchbientitre')
-                            ->setParameter('searchbientitre', '%'.addcslashes($search->getSearchTitre(), '%_').'%');
+        $query = $this->createQueryBuilder('biens')
+                    ->andWhere('biens.titre LIKE :searchTitre')
+                    ->setParameter('searchTitre', '%'.addcslashes($search->getSearchTitre(), '%_').'%');
+
+        if ($search->getSearchPrix()) {
+
+            $query = $query->andWhere('biens.prix <= :searchPrix')
+                        ->setParameter('searchPrix', $search->getSearchPrix());
+
         }
 
         return $query->getQuery();

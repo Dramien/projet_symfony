@@ -34,11 +34,6 @@ class Search
     private $searchTitre;
 
     /**
-    * @var string|null
-    */
-    private $searchCategorie;
-
-    /**
     * @var int|null
     */
     private $searchPrix;
@@ -49,14 +44,6 @@ class Search
     public function getSearchTitre(): ?string
     {
         return $this->searchTitre;
-    }
-
-    /**
-    * @return string|null
-    */
-    public function getSearchCategorie(): ?string
-    {
-        return $this->searchCategorie;
     }
 
     /**
@@ -74,16 +61,6 @@ class Search
     public function setSearchTitre(string $search): Search
     {
         $this->searchTitre = $search;
-        return $this;
-    }
-
-    /**
-    * @param string|null $search
-    * @return Search
-    */
-    public function setSearchCategorie(string $search): Search
-    {
-        $this->searchCategorie = $search;
         return $this;
     }
 

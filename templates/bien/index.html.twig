@@ -13,16 +13,15 @@
 
             <div class="col-12 d-inline-block">
                 <form class="form-inline">
+
                     {{ form_start(form) }}
 
-                        {{ form_label(form.searchTitre, null, { 'label': 'Votre recherche :', 'label_attr': {'class': 'text-default col-sm-3'} }) }}
+                        {{ form_label(form.searchTitre, null, { 'label': 'Votre recherche :', 'label_attr': {'class': 'text-info col-sm-2'} }) }}
                         {{ form_widget(form.searchTitre) }}
 
-                        {{ form_widget(form.searchCategorie) }}
+                        <div class="m-2">{{ form_widget(form.searchPrix) }}</div>
 
-                        {{ form_widget(form.searchPrix) }}
-
-                        <button class="btn btn-md btn-default my-2 my-sm-0 ml-3" type="submit"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-md btn-info my-2 my-sm-0 ml-3" type="submit"><i class="fas fa-search"></i></button>
 
                     {{ form_end(form) }}
                 </form>
