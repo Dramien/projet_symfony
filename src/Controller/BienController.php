@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bien;
+use App\Entity\User;
 use App\Entity\Search;
 use App\Form\SearchBienType;
 use App\Form\BienType;
@@ -87,19 +88,29 @@ class BienController extends AbstractController
      */
     public function edit(Request $request, Bien $bien): Response
     {
-        $form = $this->createForm(BienType::class, $bien);
-        $form->handleRequest($request);
+        $user = $this ->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ( $user->isAdmin($user) || $bien->isProprietaire($user) ) { // si l'utilisateur est bien le propriétaire du bien
 
+            $form = $this->createForm(BienType::class, $bien);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('bien_index');
+            }
+
+            return $this->render('bien/edit.html.twig', [
+                'bien' => $bien,
+                'form' => $form->createView(),
+            ]);
+
+        } else{
+            $this->addFlash('success', 'Fuck');
+            return $this->redirectToRoute('bien_index');
+
         }
 
-        return $this->render('bien/edit.html.twig', [
-            'bien' => $bien,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
@@ -108,12 +119,15 @@ class BienController extends AbstractController
      */
     public function delete(Request $request, Bien $bien): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$bien->getId(), $request->request->get('_token'))) {
+
+        $user = $this ->getUser();
+        if ( ( $user->isAdmin($user) || $bien->isProprietaire($user) ) && $this->isCsrfTokenValid('delete'.$bien->getId(), $request->request->get('_token')) ) { // si l'utilisateur est bien le propriétaire du bien
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($bien);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('bien_index');
+        } return $this->redirectToRoute('bien_index');
+
     }
+
 }

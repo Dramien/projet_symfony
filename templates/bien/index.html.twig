@@ -4,6 +4,15 @@
 
 {% block body %}
 
+ {# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
 
 <div class="container-fluid min-vh-100" style="background-image: url('{{ asset('cle.jpg') }}');background-attachment: fixed; background-size: cover; background-position: center center; opacity: 0.8">
 

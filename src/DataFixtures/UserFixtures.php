@@ -71,7 +71,7 @@ class UserFixtures extends Fixture
         -> setAdresse( $faker -> streetAddress() )
         -> setVille( $faker -> city() )
         -> setCodePostal( $faker -> numberBetween($min = 00000, $max = 99999) )
-        -> setTelephone( $faker -> phoneNumber(10) )
+        -> setTelephone( $faker -> regexify('^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$') )
         ->setEmail( $faker -> email() ) // je set l'email avec un mail aléatoire généré par le faker
         ->setPassword( $faker -> password() ); // je set le pass avec un pass aléatoire généré par le faker
       $manager->persist($user);
